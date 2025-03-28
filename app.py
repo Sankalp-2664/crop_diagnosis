@@ -5,6 +5,24 @@ from ultralytics import YOLO
 from flask import Flask, request, jsonify
 from PIL import Image
 import io
+import gdown
+import os
+
+# Google Drive file ID (Replace with your actual File ID)
+FILE_ID = "1KnIQI7bdwbHtPfCRqm-UooxyITLmGwEj"
+OUTPUT_PATH = "crop_disease_model.pt"
+
+# Check if model exists (to prevent re-downloading)
+if not os.path.exists(OUTPUT_PATH):
+    print("🔄 Downloading model from Google Drive...")
+    gdown.download(f"https://drive.google.com/uc?id={FILE_ID}", OUTPUT_PATH, quiet=False)
+    print("✅ Model downloaded successfully!")
+else:
+    print("✅ Model already exists. Skipping download.")
+
+# Load the YOLO model after downloading
+from ultralytics import YOLO
+model = YOLO(OUTPUT_PATH)
 
 app = Flask(__name__)
 
