@@ -3,3 +3,6 @@ pillow
 torch
 torchvision
 gunicorn
+gdown
+ultralytics
+gradio
